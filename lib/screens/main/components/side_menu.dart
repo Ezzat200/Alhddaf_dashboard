@@ -1,10 +1,11 @@
-
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class SideMenu extends StatelessWidget {
+  final Function(String) onItemSelected;
+
   const SideMenu({
     Key? key,
+    required this.onItemSelected,
   }) : super(key: key);
 
   @override
@@ -15,53 +16,39 @@ class SideMenu extends StatelessWidget {
           DrawerHeader(
             child: Image.asset("assets/images/logo.png"),
           ),
-          DrawerListTile(
-            title: "Dashboard",
-            svgSrc: "assets/icons/menu_dashboard.svg",
-            press: () {
-              //  Navigator.pushReplacement(
-              //   context,
-              //   MaterialPageRoute(
-              //     builder: (context) => MainScreen(), 
-              //   ),
-              // );
-            },
+         
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: DrawerListTile(
+              title: "Advertisements",
+              leadingIcon: Icon(Icons.campaign, color: Colors.white54),
+              press: () => onItemSelected('/myadds'),
+            ),
           ),
-            // DrawerListTile(
-            //   title: "Transaction",
-            //   svgSrc: "assets/icons/menu_tran.svg",
-            //   press: () {},
-            // ),
-            // DrawerListTile(
-            //   title: "Task",
-            //   svgSrc: "assets/icons/menu_task.svg",
-            //   press: () {},
-            // ),
-            // DrawerListTile(
-            //   title: "Documents",
-            //   svgSrc: "assets/icons/menu_doc.svg",
-            //   press: () {},
-            // ),
-            // DrawerListTile(
-            //   title: "Store",
-            //   svgSrc: "assets/icons/menu_store.svg",
-            //   press: () {},
-            // ),
-            // DrawerListTile(
-            //   title: "Notification",
-            //   svgSrc: "assets/icons/menu_notification.svg",
-            //   press: () {},
-            // ),
-            // DrawerListTile(
-            //   title: "Profile",
-            //   svgSrc: "assets/icons/menu_profile.svg",
-            //   press: () {},
-            // ),
-            // DrawerListTile(
-            //   title: "Settings",
-            //   svgSrc: "assets/icons/menu_setting.svg",
-            //   press: () {},
-            // ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: DrawerListTile(
+              title: "myAcademy",
+              leadingIcon: Icon(Icons.school, color: Colors.white54),
+              press: () => onItemSelected('/myacademy'),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: DrawerListTile(
+              title: "Trips",
+              leadingIcon: Icon(Icons.airplane_ticket, color: Colors.white54),
+              press: () => onItemSelected('/mytrips'),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: DrawerListTile(
+              title: "myclubs",
+              leadingIcon: Icon(Icons.sports_soccer, color: Colors.white54),
+              press: () => onItemSelected('/myclubs'),
+            ),
+          ),
         ],
       ),
     );
@@ -71,13 +58,13 @@ class SideMenu extends StatelessWidget {
 class DrawerListTile extends StatelessWidget {
   const DrawerListTile({
     Key? key,
-    // For selecting those three line once press "Command+D"
     required this.title,
-    required this.svgSrc,
+    required this.leadingIcon,
     required this.press,
   }) : super(key: key);
 
-  final String title, svgSrc;
+  final String title;
+  final Icon leadingIcon;
   final VoidCallback press;
 
   @override
@@ -85,14 +72,13 @@ class DrawerListTile extends StatelessWidget {
     return ListTile(
       onTap: press,
       horizontalTitleGap: 0.0,
-      leading: SvgPicture.asset(
-        svgSrc,
-        colorFilter: ColorFilter.mode(Colors.white54, BlendMode.srcIn),
-        height: 16,
-      ),
-      title: Text(
-        title,
-        style: TextStyle(color: Colors.white54),
+      leading: leadingIcon, 
+      title: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 15),
+        child: Text(
+          title,
+          style: TextStyle(color: Colors.white54),
+        ),
       ),
     );
   }
